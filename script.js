@@ -5,6 +5,11 @@ calculator = {
     this.$equals.on('click',  this.handleCalculate.bind(this));
     this.$ce.on('click', this.handleClearEntry.bind(this));
     this.$c.on('click',  this.handleClearAll.bind(this));
+    this.$neg.on('click', this.handleNegative.bind(this));
+  },
+  handleNegative: function() {
+    var number = this.$result.html();
+    if (number[0] !== '-') this.$result.html('-' + number);
   },
   handleCalculate: function() {
     this.$result.html(eval(this.$equation.html() + this.$result.html()));
@@ -22,6 +27,7 @@ calculator = {
   },
   handleNumber: function(e) {
     var digit = e.target.innerHTML
+    if (this.$result.html() === '0') this.$result.html('');
     this.buildNumber(digit)
   },
   handleOperator: function(e) {
@@ -40,6 +46,7 @@ calculator = {
     }
   },
   init: function() {
+    this.$neg = $('#neg');
     this.$ce = $('#ce');
     this.$c = $('#c');
     this.$num = $('.num');
